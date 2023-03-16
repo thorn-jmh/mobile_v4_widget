@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/class_list_item"
+    android:layout_width="match_parent"
+    android:layout_height="77dp"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@android:color/transparent">
+
+        <ImageView
+            android:id="@+id/item_left_edge"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/item_info_bar"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/item_name"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.25"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:text="面向对象的程序设计" />
+
+            <TextView
+                android:id="@+id/item_place"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:text="紫金港机房" />
+
+            <TextView
+                android:id="@+id/item_time"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:text="8:00 - 9:35" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/item_right_edge"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+</FrameLayout>
