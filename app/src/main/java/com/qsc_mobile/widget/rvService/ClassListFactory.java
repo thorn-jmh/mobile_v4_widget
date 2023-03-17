@@ -111,7 +111,7 @@ public class ClassListFactory implements RemoteViewsService.RemoteViewsFactory {
     // Data manipulation
 
     private void reloadData() {
-        widgetEntries = DataProvider.getDataWithDayHeader(null,null);
+        widgetEntries = DataProvider.getDataWithDayHeader(DateTime.now(),null);
     }
 
 

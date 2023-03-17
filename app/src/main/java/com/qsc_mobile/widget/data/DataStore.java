@@ -7,6 +7,8 @@ public class DataStore {
     public static final String PACKAGE = "com.qsc_mobile.widget";
     public static final String PREF_WIDGET_DATA = "widgetData";
 
+
+
     public static void saveData(Context context,String data) {
         context.getSharedPreferences(PACKAGE, Context.MODE_PRIVATE)
                 .edit()
@@ -22,7 +24,8 @@ public class DataStore {
         if (data != null) {
             DataChannel.parseJsonData(data);
         }
-        return false;
+
+        return data == null;
     }
 
 

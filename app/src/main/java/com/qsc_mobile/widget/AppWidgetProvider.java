@@ -4,12 +4,9 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.util.Log;
-import android.widget.RemoteViews;
 
 import com.qsc_mobile.widget.data.DataProvider;
-import com.qsc_mobile.widget.visualizer.ClassListVisualizer;
 import com.qsc_mobile.widget.visualizer.IWidgetVisualizer;
 
 /**
@@ -42,6 +39,9 @@ public abstract class AppWidgetProvider extends android.appwidget.AppWidgetProvi
 
     public void onEnabled(Context context) {
         Log.d(TAG, "onEnabled, context:" + context);
+//        // this method should be called by flutter
+//        // here we just load initial data at startup
+//        DataChannel.getData(context);
         DataProvider.ensureDataLoaded(context);
         super.onEnabled(context);
     }

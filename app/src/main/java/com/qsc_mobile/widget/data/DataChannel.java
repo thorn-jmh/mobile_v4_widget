@@ -19,60 +19,21 @@ import java.util.TreeSet;
 
 public class DataChannel {
 
-    static String json = "{\n" +
-            "      \"2023-02-26\": [\n" +
-            "        {\n" +
-            "          \"duration\": \"allDay\",\n" +
-            "          \"category\": \"course\",\n" +
-            "          \"tags\": [],\n" +
-            "          \"name\": \"test1\",\n" +
-            "          \"time\": \"\",\n" +
-            "          \"place\": \"qsc\",\n" +
-            "          \"start\": \"2023-02-26T12:00:00Z\",\n" +
-            "          \"end\": \"2023-02-26T13:00:00Z\"\n" +
-            "        },\n" +
-            "        {\n" +
-            "          \"duration\": \"allDay\",\n" +
-            "          \"category\": \"course\",\n" +
-            "          \"tags\": [],\n" +
-            "          \"name\": \"test2\",\n" +
-            "          \"time\": \"\",\n" +
-            "          \"place\": \"217\",\n" +
-            "          \"start\": \"2023-02-26T14:00:00Z\",\n" +
-            "          \"end\": \"2023-02-26T15:00:00Z\"\n" +
-            "        }\n" +
-            "      ],\n" +
-            "      \"2023-02-27\": [\n" +
-            "        {\n" +
-            "            \"duration\": \"allDay\",\n" +
-            "            \"category\": \"course\",\n" +
-            "            \"tags\": [],\n" +
-            "            \"name\": \"数字逻辑设计\",\n" +
-            "            \"time\": \"\",\n" +
-            "            \"place\": \"东四-409\",\n" +
-            "            \"start\": \"2023-02-27T06:00:00Z\",\n" +
-            "            \"end\": \"2023-02-26T08:00:00Z\"\n" +
-            "        },\n" +
-            "        {\n" +
-            "          \"duration\": \"allDay\",\n" +
-            "          \"category\": \"course\",\n" +
-            "          \"tags\": [],\n" +
-            "          \"name\": \"面向对象程序设计\",\n" +
-            "          \"time\": \"\",\n" +
-            "          \"place\": \"紫金港机房\",\n" +
-            "          \"start\": \"2023-02-27T00:00:00Z\",\n" +
-            "          \"end\": \"2023-02-27T02:00:00Z\"\n" +
-            "        }\n" +
-            "      ]\n" +
-            "}";
 
-
-    // for test
+    // TODO: this method should be the callback
+    // of flutter method, and a context from main activity
+    // should be passed to it with a json string
     public static void getData(Context context){
-        if(parseJsonData(json)){
-            DataStore.saveData(context, json);
-        } else {
-            DataStore.restoreData(context);
+        String json = testData;
+        synchronized (DataChannel.class) {
+            // try to parse json data
+            // if success, save data to local storage
+            // if failed, restore the former data from local storage
+            if (parseJsonData(json)) {
+                DataStore.saveData(context, json);
+            } else {
+                DataStore.restoreData(context);
+            }
         }
     }
 
@@ -116,4 +77,98 @@ public class DataChannel {
         }
         return dataEntries;
     }
+
+
+
+
+    // for test
+    static final String testData = "{\n" +
+            "      \"2023-02-26\": [\n" +
+            "        {\n" +
+            "          \"duration\": \"allDay\",\n" +
+            "          \"category\": \"course\",\n" +
+            "          \"tags\": [],\n" +
+            "          \"name\": \"test1\",\n" +
+            "          \"time\": \"\",\n" +
+            "          \"place\": \"qsc\",\n" +
+            "          \"start\": \"2023-02-26T12:00:00Z\",\n" +
+            "          \"end\": \"2023-02-26T13:00:00Z\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"duration\": \"allDay\",\n" +
+            "          \"category\": \"course\",\n" +
+            "          \"tags\": [],\n" +
+            "          \"name\": \"test2\",\n" +
+            "          \"time\": \"\",\n" +
+            "          \"place\": \"217\",\n" +
+            "          \"start\": \"2023-02-26T14:00:00Z\",\n" +
+            "          \"end\": \"2023-02-26T15:00:00Z\"\n" +
+            "        }\n" +
+            "      ],\n" +
+            "      \"2023-02-27\": [\n" +
+            "        {\n" +
+            "            \"duration\": \"allDay\",\n" +
+            "            \"category\": \"course\",\n" +
+            "            \"tags\": [],\n" +
+            "            \"name\": \"数字逻辑设计\",\n" +
+            "            \"time\": \"\",\n" +
+            "            \"place\": \"东四-409\",\n" +
+            "            \"start\": \"2023-02-27T06:00:00Z\",\n" +
+            "            \"end\": \"2023-02-26T08:00:00Z\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"duration\": \"allDay\",\n" +
+            "          \"category\": \"course\",\n" +
+            "          \"tags\": [],\n" +
+            "          \"name\": \"面向对象程序设计\",\n" +
+            "          \"time\": \"\",\n" +
+            "          \"place\": \"紫金港机房\",\n" +
+            "          \"start\": \"2023-02-27T00:00:00Z\",\n" +
+            "          \"end\": \"2023-02-27T02:00:00Z\"\n" +
+            "        }\n" +
+            "      ],\"2023-03-17\": [\n" +
+            "        {\n" +
+            "          \"duration\": \"allDay\",\n" +
+            "          \"category\": \"course\",\n" +
+            "          \"tags\": [],\n" +
+            "          \"name\": \"数据库系统\",\n" +
+            "          \"time\": \"\",\n" +
+            "          \"place\": \"西2-303\",\n" +
+            "          \"start\": \"2023-03-17T08:00:00Z\",\n" +
+            "          \"end\": \"2023-03-17T10:00:00Z\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"duration\": \"allDay\",\n" +
+            "          \"category\": \"course\",\n" +
+            "          \"tags\": [],\n" +
+            "          \"name\": \"test2\",\n" +
+            "          \"time\": \"\",\n" +
+            "          \"place\": \"217\",\n" +
+            "          \"start\": \"2023-03-17T12:00:00Z\",\n" +
+            "          \"end\": \"2023-03-17T14:00:00Z\"\n" +
+            "        }\n" +
+            "      ],\n" +
+            "      \"2023-03-19\": [\n" +
+            "        {\n" +
+            "          \"duration\": \"allDay\",\n" +
+            "          \"category\": \"course\",\n" +
+            "          \"tags\": [],\n" +
+            "          \"name\": \"计算机组成\",\n" +
+            "          \"time\": \"\",\n" +
+            "          \"place\": \"东四409\",\n" +
+            "          \"start\": \"2023-03-19T12:00:00Z\",\n" +
+            "          \"end\": \"2023-03-19T13:00:00Z\"\n" +
+            "        },\n" +
+            "        {\n" +
+            "          \"duration\": \"allDay\",\n" +
+            "          \"category\": \"course\",\n" +
+            "          \"tags\": [],\n" +
+            "          \"name\": \"踹开艺术之门\",\n" +
+            "          \"time\": \"\",\n" +
+            "          \"place\": \"电钢琴教室\",\n" +
+            "          \"start\": \"2023-03-19T14:00:00Z\",\n" +
+            "          \"end\": \"2023-03-19T15:00:00Z\"\n" +
+            "        }\n" +
+            "      ]\n" +
+            "}";
 }

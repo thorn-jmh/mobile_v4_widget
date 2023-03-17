@@ -18,8 +18,9 @@ import java.util.TreeSet;
 
 
 public class DataProvider {
-    private static TreeSet<DateTime> dateList = new TreeSet<>();
-    private static HashMap<DateTime, List<DataEntry>> dataEntries = new HashMap<>();
+    private static volatile TreeSet<DateTime> dateList = new TreeSet<>();
+    private static volatile HashMap<DateTime, List<DataEntry>> dataEntries = new HashMap<>();
+
 
 
 
@@ -40,11 +41,19 @@ public class DataProvider {
     // ------------------------------------------
     // data provider
 
+
+    public static boolean checkUpdateTime(){
+        return dateList.last().isAfter(DateTime.now().plusDays(3));
+    }
+
     public static void ensureDataLoaded(Context context) {
-        if (dateList.isEmpty()) {
-            Log.d("DataProvider", "Data not loaded, loading...");
-            if(!DataStore.restoreData(context)) {
-                DataChannel.getData(context);
+
+        if (dateList.isEmpty()){
+            synchronized (DataProvider.class) {
+                if (dateList.isEmpty()) {
+                    Log.d("DataProvider", "Data not loaded, loading...");
+                    DataStore.restoreData(context);
+                }
             }
         }
     }
@@ -74,8 +83,11 @@ public class DataProvider {
             if (date.isAfter(endDate)) break;
             if (date.isBefore(startDate)) continue;
 
-            data.add(DataEntry.getDayHeader(date));
-            data.addAll(Objects.requireNonNull(dataEntries.get(date)));
+            List<DataEntry> entries = dataEntries.get(date);
+            if (entries != null && !entries.isEmpty()) {
+                data.add(DataEntry.getDayHeader(date));
+                data.addAll(entries);
+            }
         }
         return new ArrayList<>(data);
 
